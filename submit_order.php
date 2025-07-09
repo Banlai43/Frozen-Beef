@@ -1,8 +1,8 @@
 <?php
-// submit_order.php (เวอร์ชันสมบูรณ์)
 session_start();
 require_once 'connect.php';
 
+// ตรวจสอบว่ามีการล็อกอินและมีของในตะกร้าหรือไม่
 if (!isset($_SESSION['user_id']) || empty($_SESSION['cart'])) {
     header('Location: index.php');
     exit();
@@ -14,9 +14,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $phone = $_POST['phoneNumber'];
     $email = $_POST['email'];
     $address = $_POST['deliveryAddress'];
-    $payment = $_POST['paymentMethod'];
+    $payment_method = 'QR Payment'; // กำหนดค่าเป็น QR Payment โดยอัตโนมัติ
 
-    // ดึงข้อมูลราคาสินค้าล่าสุดจาก DB
+    // คำนวณราคารวมจากฐานข้อมูลเพื่อความปลอดภัย
     $total_price = 0;
     $cart_items = $_SESSION['cart'];
     $product_ids = array_keys($cart_items);
@@ -45,9 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
         // 1. บันทึกในตาราง orders
         $stmt_order = $connect->prepare("INSERT INTO orders (user_id, customer_name, phone, email, address, payment_method, total_price) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt_order->bind_param("isssssd", $user_id, $name, $phone, $email, $address, $payment, $total_price);
+        $stmt_order->bind_param("isssssd", $user_id, $name, $phone, $email, $address, $payment_method, $total_price);
         $stmt_order->execute();
-        $order_id = $connect->insert_id;
+        $order_id = $connect->insert_id; // ดึง ID ของออเดอร์ที่เพิ่งสร้าง
         $stmt_order->close();
 
         // 2. บันทึกรายการสินค้าแต่ละชิ้นใน order_items
@@ -64,10 +64,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // 3. ยืนยันการบันทึก
         $connect->commit();
 
-        $_SESSION['success_message'] = "สั่งซื้อสำเร็จ! รหัสคำสั่งซื้อของคุณคือ: #" . $order_id;
+        // 4. ล้างตะกร้าสินค้า
         unset($_SESSION['cart']); 
-        header("Location: order_status.php");
+        
+        // 5. ส่งต่อไปยังหน้าชำระเงินพร้อมกับ ID ของออเดอร์
+        header("Location: payment.php?order_id=" . $order_id);
         exit();
+
     } catch (mysqli_sql_exception $exception) {
         $connect->rollback();
         $_SESSION['error_message'] = "เกิดข้อผิดพลาดในการบันทึกคำสั่งซื้อ";

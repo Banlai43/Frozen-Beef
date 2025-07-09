@@ -20,12 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
                 if ($quantity > 0) {
                     if (isset($_SESSION['cart'][$product_id])) {
+                        // ถ้ามีอยู่แล้ว ให้บวกจำนวนเพิ่ม
                         $_SESSION['cart'][$product_id] += $quantity;
                     } else {
+                        // ถ้ายังไม่มี ให้เพิ่มใหม่
                         $_SESSION['cart'][$product_id] = $quantity;
                     }
                 }
-                // *** สำคัญ: หลังจากเพิ่มสินค้า ให้กลับไปหน้าสินค้าเสมอ ***
+                // *** บรรทัดสำคัญ: หลังจากเพิ่มสินค้า ให้กลับไปหน้าสินค้าเสมอ ***
                 header('Location: products.php');
                 exit();
                 break;
@@ -33,12 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             // กรณี: อัปเดตหรือลบสินค้า (จะส่งกลับไปหน้าตะกร้า)
             case 'update':
             case 'remove':
-                // (โค้ดส่วน update และ remove ของคุณ)
                 if ($action === 'update') {
                     $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 0;
                     if ($quantity > 0) {
                         $_SESSION['cart'][$product_id] = $quantity;
                     } else {
+                        // ถ้าจำนวนเป็น 0 หรือน้อยกว่า ให้ลบออก
                         unset($_SESSION['cart'][$product_id]);
                     }
                 }

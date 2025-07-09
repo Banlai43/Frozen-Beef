@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] == 'add') {
         $stmt = $connect->prepare("INSERT INTO products (name, product_code, product_type, price, description, image_url) VALUES (?, ?, ?, ?, ?, ?)");
         // แก้ไข: เพิ่ม 's' สำหรับ image_url
-        $stmt->bind_param("sssds", $name, $code, $type, $price, $desc, $image_path);
+        $stmt->bind_param("ssssds", $name, $code, $type, $price, $desc, $image_path);
     } elseif ($_POST['action'] == 'edit') {
         $stmt = $connect->prepare("UPDATE products SET name=?, product_code=?, product_type=?, price=?, description=?, image_url=? WHERE id=?");
         // แก้ไข: เพิ่ม 's' สำหรับ image_url ก่อน 'i'

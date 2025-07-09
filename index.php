@@ -1,54 +1,4 @@
-<?php session_start(); ?>
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prime Beef Export - เนื้อวัวแช่แข็งคุณภาพพรีเมียม</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <img src="images/logo.png" alt="Prime Beef Export Logo">
-                <h1>Prime Beef Export</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.php" class="active">หน้าแรก</a></li>
-                    <li><a href="products.php">สินค้า</a></li>
-                    <li><a href="contact.php">ติดต่อเรา</a></li>
-                    <li><a href="order_status.php">สถานะคำสั่งซื้อ</a></li>
-                </ul>
-            </nav>
-          <div class="auth-buttons">
-    <?php if (isset($_SESSION['user_id'])): ?>
-        <?php
-        // --- เพิ่มโค้ดคำนวณจำนวนสินค้าทั้งหมดในตะกร้า ---
-        $cart_item_count = 0;
-        if (!empty($_SESSION['cart'])) {
-            $cart_item_count = array_sum($_SESSION['cart']);
-        }
-        ?>
-
-        <a href="order.php" class="btn btn-gold cart-button">
-            🛒
-            <span class="cart-count"><?php echo $cart_item_count; ?></span>
-        </a>
-
-        <span class="welcome-message">ยินดีต้อนรับ, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
-        <a href="logout.php" class="btn btn-secondary">ออกจากระบบ</a>
-
-    <?php else: ?>
-        <a href="login.php" class="btn btn-primary">เข้าสู่ระบบลูกค้า</a>
-        <a href="admin_login.php" class="btn btn-secondary">เข้าสู่ระบบแอดมิน</a>
-    <?php endif; ?>
-</div>
-        </div>
-    </header>
+<?php include 'header.php'; ?>
 
     <main>
         <section class="hero-section">
@@ -89,15 +39,7 @@
         </section>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>Beef Export MSU</p>
-            <div class="footer-links">
-                <a href="contact.php">นโยบายความเป็นส่วนตัว</a> | 
-                <a href="contact.php">เงื่อนไขการบริการ</a>
-            </div>
-        </div>
-    </footer>
-    <script src="js/script.js"></script>
+   <?php include 'footer.php'; ?>
+   
 </body>
 </html>

@@ -49,4 +49,76 @@ document.addEventListener('DOMContentLoaded', () => {
         // เรียกใช้ตอนโหลดหน้าเว็บครั้งแรก เผื่อมีการเลือกค่าไว้แล้ว
         toggleBankDetails();
     }
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Add to Cart with AJAX ---
+    // ใช้ event delegation เพื่อให้แน่ใจว่าฟอร์มที่ถูกสร้างขึ้นมาทีหลังก็ทำงานได้
+    document.body.addEventListener('submit', function(event) {
+        // ตรวจสอบว่าเป็นฟอร์มเพิ่มสินค้าหรือไม่
+        if (event.target.matches('.add-to-cart-form')) {
+            // ป้องกันไม่ให้ฟอร์มทำงานแบบปกติ
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const actionUrl = form.action;
+
+            fetch(actionUrl, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // อัปเดตตัวเลขบนไอคอนตะกร้า
+                    const cartBadges = document.querySelectorAll('.cart-count-badge');
+                    if (cartBadges.length > 0) {
+                        cartBadges.forEach(badge => {
+                            badge.textContent = data.cart_item_count;
+                        });
+                    }
+                    
+                    // แสดงข้อความแจ้งเตือน
+                    showToast(data.message);
+                } else {
+                    // แสดงข้อความ error ถ้า server ส่ง success: false
+                    showToast(data.message || 'เกิดข้อผิดพลาด', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast('เกิดข้อผิดพลาดในการเชื่อมต่อ', 'error');
+            });
+        }
+    });
+
+});
+
+// ฟังก์ชันสำหรับแสดง Toast Notification (ไม่ต้องแก้ไข)
+function showToast(message, type = 'success') {
+    // สร้าง container ถ้ายังไม่มี
+    let toastContainer = document.getElementById('toast-container');
+    if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toast-container';
+        document.body.appendChild(toastContainer);
+    }
+
+    const toast = document.createElement('div');
+    toast.className = `toast-notification ${type}`;
+    toast.textContent = message;
+
+    toastContainer.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100);
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toast.remove();
+        }, 500);
+    }, 3000);
+}
 });

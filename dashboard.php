@@ -80,7 +80,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="auth-buttons">
     <?php if (isset($_SESSION['user_id'])): ?>
         <?php
-        // --- เพิ่มโค้ดคำนวณจำนวนสินค้าทั้งหมดในตะกร้า ---
+        //  เพิ่มโค้ดคำนวณจำนวนสินค้าทั้งหมดในตะกร้า ---
         $cart_item_count = 0;
         if (!empty($_SESSION['cart'])) {
             $cart_item_count = array_sum($_SESSION['cart']);
