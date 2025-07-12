@@ -1,10 +1,12 @@
 <?php
 // connect.php
 
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "beef";
+// ดึงค่าจาก Environment Variables ของ Render
+// ถ้าไม่เจอบน Render ให้ใช้ค่า localhost สำหรับรันบนเครื่องตัวเอง
+$host = getenv('DB_HOST') ?: 'localhost';
+$user = getenv('DB_USERNAME') ?: 'root';
+$password = getenv('DB_PASSWORD') ?: '';
+$db = getenv('DB_NAME') ?: 'beef';
 
 // ใช้ UTF-8 เพื่อรองรับภาษาไทย
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
