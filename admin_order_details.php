@@ -9,7 +9,7 @@ if ($order_id === 0) {
     exit();
 }
 
-// Update status if form is submitted
+// อัปเดตสถานะ ถ้ามีการส่งฟอร์มมา
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
     $new_status = $_POST['new_status'];
     $update_stmt = $connect->prepare("UPDATE orders SET order_status = ? WHERE id = ?");
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
     $_SESSION['success_message'] = "อัปเดตสถานะออเดอร์ #$order_id เรียบร้อยแล้ว";
 }
 
-// Fetch main order data
+// ดึงข้อมูลออเดอร์หลัก
 $stmt = $connect->prepare("SELECT * FROM orders WHERE id = ?");
 $stmt->bind_param("i", $order_id);
 $stmt->execute();
@@ -31,7 +31,7 @@ if (!$order) {
     exit();
 }
 
-// Fetch order items
+// ดึงรายการสินค้าในออเดอร์
 $items_stmt = $connect->prepare(
     "SELECT oi.quantity, oi.price_per_unit, p.name as product_name, p.product_code
      FROM order_items oi
@@ -54,12 +54,11 @@ $page_title = "รายละเอียดคำสั่งซื้อ #" .
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="admin-page-orders"> <div class="admin-wrapper">
+<body class="admin-page-orders">
+    <div class="admin-wrapper">
         <?php include 'admin_sidebar.php'; ?>
-
         <div class="admin-main-content">
             <?php include 'admin_navbar.php'; ?>
-
             <div class="p-4">
                 <a href="admin_orders.php" class="btn btn-secondary mb-3">
                     <i class="fas fa-arrow-left"></i> กลับไปหน้ารายการ
@@ -128,12 +127,21 @@ $page_title = "รายละเอียดคำสั่งซื้อ #" .
                                         }
                                     ?>
                                 </p>
+                                
+                                <?php if (!empty($order['payment_slip'])): ?>
+                                <hr>
+                                <p class="fw-bold">สลิปการโอนเงิน:</p>
+                                <a href="<?php echo htmlspecialchars($order['payment_slip']); ?>" target="_blank">
+                                    <img src="<?php echo htmlspecialchars($order['payment_slip']); ?>" class="img-fluid rounded border" alt="Payment Slip">
+                                </a>
+                                <?php endif; ?>
                                 <hr>
                                 <form action="admin_order_details.php?id=<?php echo $order_id; ?>" method="POST">
                                     <div class="mb-3">
                                         <label for="new_status" class="form-label fw-bold">อัปเดตสถานะ:</label>
                                         <select name="new_status" id="new_status" class="form-select">
                                             <option value="Pending" <?php if($order['order_status'] == 'Pending') echo 'selected'; ?>>รอดำเนินการ</option>
+                                            <option value="Verifying Payment" <?php if($order['order_status'] == 'Verifying Payment') echo 'selected'; ?>>รอตรวจสอบการชำระเงิน</option>
                                             <option value="Processing" <?php if($order['order_status'] == 'Processing') echo 'selected'; ?>>กำลังเตรียมของ</option>
                                             <option value="Shipped" <?php if($order['order_status'] == 'Shipped') echo 'selected'; ?>>จัดส่งแล้ว</option>
                                             <option value="Completed" <?php if($order['order_status'] == 'Completed') echo 'selected'; ?>>สำเร็จ</option>

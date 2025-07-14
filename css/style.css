@@ -732,10 +732,7 @@ body.admin-page-settings .sidebar a[href="admin_settings.php"] .fas {
     border-color: #DAA520; /* ใช้สีทองของธีมเมื่อ focus */
     box-shadow: 0 0 8px rgba(218, 165, 32, 0.25);
 }
-/* ============================================= */
 /* === โค้ดปรับปรุงดีไซน์หน้าสินค้า (Products Page) === */
-/* ============================================= */
-
 /* 1. สไตล์ส่วนหัว "สินค้าของเรา" และพื้นหลัง */
 .products-header {
     padding: 60px 20px;
@@ -822,9 +819,8 @@ body.admin-page-settings .sidebar a[href="admin_settings.php"] .fas {
     background: linear-gradient(45deg, #218838, #1e7e34);
     transform: scale(1.05);
 }
-/* ======================================= */
-/* === โค้ดปรับปรุงดีไซน์หน้าสั่งซื้อ (Order Page) === */
-/* ======================================= */
+
+/* (Order Page) */
 
 /* 1. จัด Layout หลักของหน้า */
 .order-form-section .container {
@@ -1009,4 +1005,33 @@ body.admin-page-settings .sidebar a[href="admin_settings.php"] .fas {
 .toast-notification.show {
     opacity: 1;
     transform: translateX(0);
+}
+/* --- Language Switcher Styles --- */
+.language-switcher {
+    display: flex;
+    align-items: center;
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 20px;
+    padding: 4px;
+    margin-right: 1rem;
+}
+.language-switcher a {
+    color: #fff;
+    padding: 4px 12px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+.language-switcher a:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+.language-switcher a.active {
+    background-color: #fff;
+    color: #8B0000;
+}
+.language-switcher span {
+    color: rgba(255,255,255,0.5);
+    font-size: 1em;
 }

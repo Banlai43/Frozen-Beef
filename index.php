@@ -4,11 +4,11 @@
         <section class="hero-section">
             <div class="container">
                 <div class="hero-text">
-                    <h2>ที่สุดแห่งคุณภาพเนื้อวัวแช่แข็ง เพื่อการส่งออก</h2>
-                    <p>เราคัดสรรเนื้อวัวเกรดพรีเมียมจากฟาร์มที่ได้มาตรฐานสากล ผ่านกระบวนการแช่แข็งทันสมัย คงความสดใหม่และรสชาติอันเป็นเลิศ </p>
+                    <h2><?php echo $lang['hero_title']; ?></h2>
+                    <p><?php echo $lang['hero_subtitle']; ?></p>
                     <div class="hero-buttons">
-                        <a href="products.php" class="btn btn-gold">ดูสินค้าทั้งหมด</a>
-                        <a href="contact.php" class="btn btn-outline-gold">ติดต่อเรา</a>
+                        <a href="products.php" class="btn btn-gold"><?php echo $lang['view_products']; ?></a>
+                        <a href="contact.php" class="btn btn-outline-gold"><?php echo $lang['contact_us']; ?></a>
                     </div>
                 </div>
             </div>
@@ -16,23 +16,23 @@
 
         <section class="quality-section">
             <div class="container">
-                <h3>ทำไมต้องเลือก Prime Beef Export?</h3>
+                <h3><?php echo $lang['quality_title']; ?></h3>
                 <div class="quality-grid">
                     <div class="quality-item">
-                        <i class="fas fa-seedling icon-quality"></i> <h4>แหล่งที่มาคุณภาพ</h4>
-                        <p>เนื้อวัวของเรามาจากฟาร์มที่ได้รับการรับรองมาตรฐานการเลี้ยงดูระดับโลก เพื่อให้มั่นใจในคุณภาพและสุขอนามัยที่ดีที่สุด</p>
+                        <i class="fas fa-seedling icon-quality"></i> <h4><?php echo $lang['quality_1_title']; ?></h4>
+                        <p><?php echo $lang['quality_1_desc']; ?></p>
                     </div>
                     <div class="quality-item">
-                        <i class="fas fa-snowflake icon-quality"></i> <h4>กระบวนการแช่แข็งทันสมัย</h4>
-                        <p>ใช้เทคโนโลยีการแช่แข็งแบบรวดเร็ว (IQF) เพื่อคงสภาพเนื้อสัมผัส รสชาติ และคุณค่าทางโภชนาการให้สมบูรณ์แบบ</p>
+                        <i class="fas fa-snowflake icon-quality"></i> <h4><?php echo $lang['quality_2_title']; ?></h4>
+                        <p><?php echo $lang['quality_2_desc']; ?></p>
                     </div>
                     <div class="quality-item">
-                        <i class="fas fa-boxes icon-quality"></i> <h4>หลากหลายผลิตภัณฑ์</h4>
-                        <p>ไม่ว่าจะเป็นสันใน ริบอาย สันนอก หรือส่วนอื่นๆ เรามีเนื้อวัวหลากหลายชนิด ตอบโจทย์ทุกความต้องการทางธุรกิจของคุณ</p>
+                        <i class="fas fa-boxes icon-quality"></i> <h4><?php echo $lang['quality_3_title']; ?></h4>
+                        <p><?php echo $lang['quality_3_desc']; ?></p>
                     </div>
                     <div class="quality-item">
-                        <i class="fas fa-award icon-quality"></i> <h4>มาตรฐานส่งออกสากล</h4>
-                        <p>ผลิตภัณฑ์ของเราได้รับการรับรองมาตรฐานสากล เช่น HACCP และ GMP เพื่อความมั่นใจในทุกการจัดส่ง</p>
+                        <i class="fas fa-award icon-quality"></i> <h4><?php echo $lang['quality_4_title']; ?></h4>
+                        <p><?php echo $lang['quality_4_desc']; ?></p>
                     </div>
                 </div>
             </div>
@@ -40,6 +40,6 @@
     </main>
 
    <?php include 'footer.php'; ?>
-   
+
 </body>
 </html>
