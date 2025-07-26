@@ -7,10 +7,10 @@ $page_title = "ติดต่อเรา";
 <main>
     <section class="contact-section">
         <div class="container">
-            <h2>ติดต่อเรา</h2>
+            <h2>ติดต่อเรา/Contact</h2>
             <div class="contact-info-grid">
                 <div class="contact-item">
-                    <h3><i class="fas fa-map-marker-alt"></i> ที่อยู่</h3>
+                    <h3><i class="fas fa-map-marker-alt"></i> ที่อยู่/Address</h3>
                     <p>คณะบัญชีและการจัดการ มหาวิทยาลัยมหาสารคาม</p>
                     <p>ตำบลขามเรียง อำเภอกันทรวิชัย</p>
                     <p>จังหวัดมหาสารคาม 44150</p>
@@ -27,8 +27,8 @@ $page_title = "ติดต่อเรา";
                 </div>
                 <div class="contact-item">
                     <h3><i class="fas fa-phone-alt"></i> ข้อมูลติดต่อ</h3>
-                    <p><strong>เบอร์โทรศัพท์:</strong> <a href="tel:+66987654321">+66 (0) 98 765 4321</a></p>
-                    <p><strong>อีเมล:</strong> <a href="mailto:contact@beefexportmsu.com">contact@beefexportmsu.com</a></p>
+                    <p><strong>TEL:</strong> <a href="tel:+66987654321">+66 (0) 98 765 4321</a></p>
+                    <p><strong>EMAIL:</strong> <a href="mailto:contact@beefexportmsu.com">contact@beefexportmsu.com</a></p>
                     <p><strong>LINE Official:</strong> @BeefExport</p>
                     <p><strong>เวลาทำการ:</strong> จันทร์ - ศุกร์, 09:00 - 17:00 น.</p>
                 </div>
@@ -48,22 +48,22 @@ $page_title = "ติดต่อเรา";
                 <?php endif; ?>
                 <form id="contactForm" action="submit_contact.php" method="POST">
                     <div class="form-group">
-                        <label for="contactName">ชื่อของคุณ:</label>
+                        <label for="contactName">Name:</label>
                         <input type="text" id="contactName" name="contactName" required>
                     </div>
                     <div class="form-group">
-                        <label for="contactEmail">อีเมล:</label>
+                        <label for="contactEmail">Email:</label>
                         <input type="email" id="contactEmail" name="contactEmail" required>
                     </div>
                     <div class="form-group">
-                        <label for="contactSubject">เรื่อง:</label>
+                        <label for="contactSubject">About what?:</label>
                         <input type="text" id="contactSubject" name="contactSubject" required>
                     </div>
                     <div class="form-group">
-                        <label for="contactMessage">ข้อความของคุณ:</label>
+                        <label for="contactMessage">Your message:</label>
                         <textarea id="contactMessage" name="contactMessage" rows="6" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">ส่งข้อความ</button>
+                    <button type="submit" class="btn btn-primary">Send</button>
                 </form>
             </div>
         </div>

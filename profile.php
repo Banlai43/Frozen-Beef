@@ -1,12 +1,19 @@
 <?php
-$page_title = "แก้ไขข้อมูลส่วนตัว";
-include 'header.php';
+// 1. เริ่ม session และตรวจสอบการล็อกอินก่อนเป็นอันดับแรก
+session_start();
+require_once 'connect.php'; 
 
-// Redirect if not logged in
+// 2. ถ้ายังไม่ล็อกอิน ให้ redirect ไปหน้า login ทันที
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
+
+// --- โค้ดส่วนที่เหลือของหน้าจะทำงานก็ต่อเมื่อผู้ใช้ล็อกอินแล้ว ---
+
+// 3. กำหนด title และ include header.php
+$page_title = "แก้ไขข้อมูลส่วนตัว";
+include 'header.php';
 
 $user_id = $_SESSION['user_id'];
 
